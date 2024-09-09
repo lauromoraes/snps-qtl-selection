@@ -28,7 +28,7 @@ def correct_ployd(nuc_ref, nuc_alt, info):
             else:
                 print('BUG', fields[0], nuc, nuc_ref, nuc_alt, counts)
                 return False
-        corrected_info = ':'.join(fields)
+    corrected_info = ':'.join(fields)
         # print('corrected_info', corrected_info)
     return corrected_info
 
@@ -94,7 +94,7 @@ def filter_special_cases(file_path):
                     new_lines.append(line)
             elif line.startswith('#CHROM'):
                 fields = line[:-1].split('\t')
-                fields.extend([ '%_{}_'.format(x) for x in (205,206,207,208) ])
+                fields.extend([ '%_{}_'.format(x) for x in (205,206,207,208) ]) # TODO: Extrair nomes das colunas
                 print(fields)
                 new_line = '\t'.join(fields)+'\n'
                 new_lines.append(new_line)
@@ -159,11 +159,11 @@ def is_valid(fields, eval_type=0, threshold=None, avg=None, std=None):
 
         counts_205 = [int(x) for x in fields[-4].split(':')[4].split(',')]
         num_reads_205 = float(sum(counts))
-        percent_205 = float(counts_205[i_ref]) / num_reads_205
+        # percent_205 = float(counts_205[i_ref]) / num_reads_205
 
         num_reads_207 = float(sum(counts))
         percent_207 = float(counts[i_ref]) / num_reads_207
-        if percent_205 >= threshold and percent_207 >= threshold:
+        if percent_207 >= threshold:
             print('INCLUIR: o percentual de reads semelhantes ao parental_sup ({}) e de {} que e superior.'.format(percent_207, alelo_sup), counts)
         else:
             print('DESCARTAR: o percentual de reads semelhantess ao parental_sup ({}) e de {} que e inferior.'.format(percent_207, alelo_sup), counts)
@@ -206,11 +206,11 @@ def is_valid(fields, eval_type=0, threshold=None, avg=None, std=None):
             print('Insuficient number of reads.\n\t205: {} | 207: {} | 208: {}'.format(num_reads_205, num_reads_207, num_reads_208))
             return False
 
-        percent_205 = float(counts_205[i_ref]) / num_reads_205
+        # percent_205 = float(counts_205[i_ref]) / num_reads_205
         percent_207 = float(counts[i_ref]) / num_reads_207
         percent_208 = float(counts_208[i_ref]) / num_reads_208
 
-        condition_207 = percent_205 >= threshold and percent_207 >= threshold
+        condition_207 = percent_207 >= threshold
         condition_208 = percent_208 >= (avg-std) and percent_208 <= (avg+std)
 
         if condition_207 and condition_208:
