@@ -1,0 +1,26 @@
+# List of parameters with VCFfile path, output folder path and the list of filters to apply with their parameters in
+# a YAML file. The filters are applied in the order they are listed in the YAML file. The filters are applied to the
+# VCF file.
+
+vcf_file_path: "./variantsfile_Annotated.vcf"
+output_folder_path: "./vcf_filtered"
+
+parental_sup_column: "Samplen206_"
+parental_inf_column: "Samplen205_"
+pool_sup_column: "Samplen207_"
+pool_rnd_column: "Samplen208_"
+
+filters:
+  - name: "at_least"
+    description: "Filter out variants that are present in at least the specified number of reads"
+    parameters:
+      - name: "filter1_parameter1"
+        value: "value1"
+      - name: "filter1_parameter2"
+        value: "value2"
+  - name: "filter2"
+    parameters:
+      - name: "filter2_parameter1"
+        value: "value1"
+      - name: "filter2_parameter2"
+        value: "value2"

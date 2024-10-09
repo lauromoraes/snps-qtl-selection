@@ -1,0 +1,1000 @@
+ 1058  cd ..
+ 1059  grep ">" clustalw/Mouse_tata_combined.aln | head
+ 1060  grep "phosphodiesterase" fasta/Mouse_tata_combined.fa
+ 1061  grep "phosphodiesterase" fasta/Mouse_tata_combined.fa | wc -l
+ 1062  grep "membrane-bound" fasta/Mouse_tata_combined.fa | wc -l
+ 1063  grep "zinc" fasta/Mouse_tata_combined.fa | wc -l
+ 1064  grep "zinc" fasta/Mouse_tata_combined.fa
+ 1065  blastn -help
+ 1066  ls
+ 1067  cd /mnt/nupeb/bracis/data/interim/
+ 1068  ls
+ 1069  cd blast
+ 1070  cd blastn
+ 1071  ls
+ 1072  less Mouse_tata_pos.tsv 
+ 1073  less Mouse_tata_neg.tsv 
+ 1074  ls
+ 1075  less Mouse_tata_combined_blastn.tsv 
+ 1076  cd /mnt/nupeb/bracis/
+ 1077  cd data/interim/
+ 1078  ls
+ 1079  less blastn/Mouse_tata_combined_blastn.tsv 
+ 1080  grep "BL_ORD_ID" blastn/Mouse_tata_combined_blastn.tsv 
+ 1081  grep "gnl" blastn/Mouse_tata_combined_blastn.tsv 
+ 1082  grep "gt;FP000603" blastn/Mouse_tata_combined_blastn.tsv 
+ 1083  ls
+ 1084  ls lmu-projects/
+ 1085  ls lmu-projects/promoter-doc/
+ 1086  ls lmu-projects/promoter-doc/notebooks/
+ 1087  cd ..
+ 1088  ls
+ 1089  cd lauro/
+ 1090  ls
+ 1091  ls workspace_nupeb
+ 1092  cd workspace_nupeb
+ 1093  ls
+ 1094  cd workspace_nupeb
+ 1095  ls
+ 1096  git clone https://github.com/liuliwei1980/GraphPro.git
+ 1097  ls
+ 1098  pipenv install --extra-index-url https://download.pytorch.org/whl/cu115/ "torch==1.11.0+cu115"
+ 1099  exit
+ 1100  cd workspace_nupeb
+ 1101  ls
+ 1102  cd GraphPro/
+ 1103  ls
+ 1104  cd workspace_nupeb
+ 1105  cd GraphPro/
+ 1106  ls
+ 1107  python Wpair.py
+ 1108  Wpair.py
+ 1109  ./Wpair.py
+ 1110  sudo chmod +x Wpair.py 
+ 1111  ./Wpair.py
+ 1112  python3 Wpair.py
+ 1113  nvcc --version
+ 1114  docker image ls
+ 1115  conda install pytorch torchvision torchaudio cpuonly -c pytorch
+ 1116  pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+ 1117  python3 Wpair.py
+ 1118  python3 wTest2.py 
+ 1119  pip install shap
+ 1120  python3 wTest2.py 
+ 1121  pip install gensim
+ 1122  python3 -m pip install --upgrade pip
+ 1123  python3 wTest2.py 
+ 1124  pip install captum
+ 1125  python3 wTest2.py 
+ 1126  pip install torch_geometric
+ 1127  python3 wTest2.py 
+ 1128  pip3 show gensim
+ 1129  pip3 uninstall gensim
+ 1130  pip install "gensim>=3,<4"
+ 1131  pip3 show gensim
+ 1132  pip install "gensim>=3.0,<4.0"
+ 1133  python3 --version
+ 1134  cd ..
+ 1135  conda create -n graphpro python=3.8.10 anaconda
+ 1136  cd workspace_nupeb
+ 1137  pip install pipenv --user
+ 1138  nvcc --version
+ 1139  pipenv sheel
+ 1140  pipenv shell
+ 1141  ls
+ 1142  tmux ls
+ 1143  tmux a -t note
+ 1144  tmux ls
+ 1145  tmux a -t note
+ 1146  htop
+ 1147  tmux a -t note
+ 1148  htop
+ 1149  conda env list
+ 1150  conda activate qiime2-2023.5
+ 1151  pip install lefse
+ 1152  exit
+ 1153  tmux ls
+ 1154  tmux a -t note
+ 1155  conda env list
+ 1156  tmux new -s lefse
+ 1157  exti
+ 1158  exit
+ 1159  ls
+ 1160  htop
+ 1161  cd /mnt/nupeb/rede-micro/redemicro-miliane-nutri/
+ 1162  cd experiments/
+ 1163  ls
+ 1164  cd miliane-CxAC-trim/
+ 1165  ls
+ 1166  ls qiime-artifacts/
+ 1167  ls lefse
+ 1168  less lefse/biom-table.biom 
+ 1169  ls
+ 1170  ls myworkdir/
+ 1171  ls
+ 1172  ls lmu-projects/
+ 1173  ls nupeb/
+ 1174  cd /mnt/nupeb/hi-fat-diet-microbiom/
+ 1175  ls
+ 1176  ls /home/sylvana_noronha/
+ 1177  sudo ls /home/sylvana_noronha/
+ 1178  ls
+ 1179  sudo ls /home/sylvana_noronha/
+ 1180  ls
+ 1181  ls qiime_artifacts/
+ 1182  ls raw_sequence/
+ 1183  ls
+ 1184  ls paper_reviewer/
+ 1185  ls
+ 1186  cd /home/sylvana_noronha/
+ 1187  ls
+ 1188  sudo cd /home/sylvana_noronha/
+ 1189  sudo cd /home/sylvana_noronha
+ 1190  sudo su
+ 1191  cd ..
+ 1192  cd rede-micro/hfd-mv/
+ 1193  pwd
+ 1194  htop
+ 1195  cd /mnt/nupeb/hi-fat-diet-microbiom/
+ 1196  ls
+ 1197  mkdir database
+ 1198  cd database/
+ 1199  wget https://data.qiime2.org/classifiers/sepp-ref-dbs/sepp-refs-silva-128.qza
+ 1200  ls
+ 1201  cd /mnt/nupeb/hi-fat-diet-microbiom/
+ 1202  ls
+ 1203  ls database/
+ 1204  ls
+ 1205  ls database/
+ 1206  cd database/
+ 1207  pwd
+ 1208  cd ..
+ 1209  ls
+ 1210  htop
+ 1211  exit
+ 1212  sudo adduser talita_alves_lfc
+ 1213  sudo nano /etc/ssh/sshd_config
+ 1214  sudo service ssh reload
+ 1215  sudo su
+ 1216  sudo adduser osiel_lbcm
+ 1217  sudo adduser osiel_lbcm
+ 1218  sudo passwd osiel_lbcm
+ 1219  sudo nano /etc/ssh/sshd_config
+ 1220  sudo service ssh reload
+ 1221  ls
+ 1222  ls /mnt/nupeb/
+ 1223  ls
+ 1224  cd /mnt/nupeb/
+ 1225  ls
+ 1226  cd lbcm/
+ 1227  ls
+ 1228  ls -lah
+ 1229  mkdir osiel
+ 1230  sudo chown -R osiel_lbcm osiel
+ 1231  sudo chgrp -R lbcm osiel
+ 1232  ls -lah
+ 1233  cd osiel/
+ 1234  pwd
+ 1235  htop
+ 1236  sudo apt list --installed
+ 1237  apt list --installed
+ 1238  apt list --installed | grep "python"
+ 1239  groups
+ 1240  sudo usermod -aG docker usiel_lbcm
+ 1241  ls /home/
+ 1242  sudo usermod -aG docker osiel_lbcm
+ 1243  docker list
+ 1244  docker --help
+ 1245  docker img list
+ 1246  docker image
+ 1247  docker image ls
+ 1248  sudo su osiel_lbcm
+ 1249  tmux ls
+ 1250  tmux a -t down
+ 1251  tmum new -s lefse
+ 1252  tmux new -s lefse
+ 1253  tmux ls
+ 1254  tmux a -t lefse
+ 1255  docker images list
+ 1256  exit
+ 1257  sudo su osiel_lbcm
+ 1258  exit
+ 1259  ls
+ 1260  htop
+ 1261  exit
+ 1262  sudo su osiel_lbcm
+ 1263  exit
+ 1264  sudo su
+ 1265  tmux new -s docker
+ 1266  tmux a -t osiel
+ 1267  tmux new -s osiel
+ 1268  ls
+ 1269  tmux ls
+ 1270  tmux a -t rstudio
+ 1271  tmux ls
+ 1272  tmux a -t down
+ 1273  sudo su osiel_lbcm
+ 1274  which conda 
+ 1275  ls -lah /home/lauro/anaconda3/
+ 1276  sudo chmod -aG condagrp osiel_lbcm
+ 1277  sudo chgrp -aG condagrp osiel_lbcm
+ 1278  sudo usermod -aG condagrp osiel_lbcm
+ 1279  cd /home/lauro/anaconda3
+ 1280  lsl
+ 1281  ls
+ 1282  nano .condarc
+ 1283  rm .condarc
+ 1284  conda config
+ 1285  sudo -i
+ 1286  which conda
+ 1287  ls /home/lauro/anaconda3/bin
+ 1288  ls
+ 1289  tmux ls
+ 1290  tmux a -t osiel
+ 1291  tmux new -s osiel
+ 1292  tmux a -t osiel
+ 1293  tmux new -s osiel
+ 1294  sudo chmod 770 -R /home/lauro/anaconda3
+ 1295  ls -lah /home/lauro/anaconda3
+ 1296  groups osiel_lbcm 
+ 1297  tmux a -t osiel_lbcm
+ 1298  tmux ls
+ 1299  tmux a -t osiel
+ 1300  sudo su osiel_lbcm
+ 1301  groups
+ 1302  groups osiel
+ 1303  groups osiel_lbcm
+ 1304  sudo chgrp -R condagrp /home/lauro/anaconda3
+ 1305  sudo chmod 770 -R /home/lauro/anaconda3
+ 1306  sudo su osiel_lbcm
+ 1307  sudo adduser osiel_lbcm condagrp
+ 1308  sudo adduser osiel_lbcm conda
+ 1309  sudo su osiel_lbcm
+ 1310  sudo nano /etc/profile
+ 1311  conda env list
+ 1312  conda env export
+ 1313  conda env export | grep -v "^prefix: " > environment.txt
+ 1314  mv environment.txt environment.yml
+ 1315  less environment.yml 
+ 1316  mv environment.yml /home/lauro/
+ 1317  ls
+ 1318  cd ..
+ 1319  conda activate
+ 1320  conda init --reverse --all
+ 1321  rm -rf anaconda3
+ 1322  rm -rf ~/anaconda3
+ 1323  sudo rm -rf /opt/anaconda3
+ 1324  sudo rm -rf /home/lauro/anaconda3
+ 1325  exit
+ 1326  ls
+ 1327  cd progs/
+ 1328  ls
+ 1329  wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
+ 1330  ls
+ 1331  sudo wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
+ 1332  ls
+ 1333  ls -lah
+ 1334  sudo chown lauro Anaconda3-2024.06-1-Linux-x86_64.sh 
+ 1335  ls -lah
+ 1336  sudo chgrp lauro Anaconda3-2024.06-1-Linux-x86_64.sh 
+ 1337  ls -lah
+ 1338  sudo bash ./Anaconda3-2024.06-1-Linux-x86_64.sh
+ 1339  sudo grouppadd anaconda
+ 1340  sudo groupadd anaconda
+ 1341  sudo chgrp -R anaconda /opt/anaconda3/
+ 1342  sudo chmod 770 -R /opt/anaconda3/
+ 1343  sudo adduser osiel_lbmc anaconda
+ 1344  sudo adduser osiel_lbcm anaconda
+ 1345  sudo adduser lauro anaconda
+ 1346  groups
+ 1347  source /opt/anaconda3/bin/activate
+ 1348  exit
+ 1349  tmux new -s conda
+ 1350  exit
+ 1351  source /opt/anaconda3/bin/activate
+ 1352  conda init
+ 1353  exit
+ 1354  conda env create -f environment.yml 
+ 1355  exit
+ 1356  ./down.sh 
+ 1357  less ./down.sh 
+ 1358  exit
+ 1359  conda env create -f environment.yml
+ 1360  tmux ls
+ 1361  tmux a -t conda
+ 1362  tmux new -s conda
+ 1363  conda
+ 1364  tmux ls
+ 1365  tmux a -t down
+ 1366  sudo reboot -now
+ 1367  sudo reboot -t now
+ 1368  sudo reboot now
+ 1369  conda env list
+ 1370  conda activate qiime2-2023.5
+ 1371  tmux a -t note
+ 1372  cd /mnt/nupeb/
+ 1373  ls
+ 1374  cd rede-micro/redemicro-miliane-nutri/
+ 1375  ls
+ 1376  conda create -n lefse -c conda-forge python=2.7.15
+ 1377  conda activate lefse
+ 1378  conda install -c bioconda -c conda-forge lefse
+ 1379  ls
+ 1380  cd rede-micro/redemicro-miliane-nutri/
+ 1381  ls
+ 1382  cd experiments/
+ 1383  ls
+ 1384  cd miliane-CxAC-trim/
+ 1385  ls
+ 1386  cd lefse
+ 1387  ls
+ 1388  lefse_format_input.py lefse_example.tsv lefse_example.in -c 1 -s 2 -u 3 -o 1000000
+ 1389  less lefse_example.in 
+ 1390  ls -lah
+ 1391  less lefse_example.in 
+ 1392  ls -lah
+ 1393  rm lefse_example.in 
+ 1394  ls -lah
+ 1395  conda env list
+ 1396  docker run -v .:/data biobakery/lefse ls
+ 1397  docker run -v .:/data biobakery/lefse /data
+ 1398  docker run -v .:/data biobakery/lefse data
+ 1399  docker run -v .:/data biobakery/lefse ls data
+ 1400  docker run -v .:/data biobakery/lefse ls /data
+ 1401  docker run -v .:/data biobakery/lefse it
+ 1402  docker run -it -v .:/data biobakery/lefse
+ 1403  docker run -ti --rm -v .:/data biobakery/lefse bash
+ 1404  conda env list
+ 1405  conda activate qiime2-2023.5
+ 1406  R
+ 1407  Rscript -e 'install.packages("coin", repos=c("cran.priv","https://cloud.r-project.org"))'
+ 1408  nano qiime_to_lefse.py
+ 1409  chmod +x qiime_to_lefse.py 
+ 1410  ls /mnt/nupeb/
+ 1411  htop
+ 1412  tmux ls
+ 1413  tmux new -s conda
+ 1414  sudo su osiel_lbcm
+ 1415  sudo userdel -r osiel_lbcm
+ 1416  su osiel_lbcm
+ 1417  sudo adduser osiel_lbcm
+ 1418  sudo adduser osiel_lbcm anaconda
+ 1419  sudo su osiel_lbcm
+ 1420  exit
+ 1421  sudo su osiel_lbcm
+ 1422  sudo adduser osiel_lbcm docker
+ 1423  sudo su osiel_lbcm
+ 1424  exit
+ 1425  conda
+ 1426  conda env create -f environment.yml 
+ 1427  conda env list
+ 1428  conda install qiime2::qiime2
+ 1429  conda env create -n qiime2-metagenome-2024.5 --file https://data.qiime2.org/distro/metagenome/qiime2-metagenome-2024.5-py39-linux-conda.yml
+ 1430  conda env create -n qiime2-amplicon-2024.5 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml
+ 1431  conda install -c bioconda lefse
+ 1432  conda config --set channel_priority flexible
+ 1433  conda install -c bioconda lefse
+ 1434  conda env list
+ 1435  exit
+ 1436  conda env list
+ 1437  sudo su osiel_lbcm
+ 1438  tmux ls
+ 1439  conda env list
+ 1440  ls -lah /opt/anaconda3/
+ 1441  ls -lah /opt/anaconda3/envs/
+ 1442  sudo chgrp -R anaconda /opt/anaconda3/
+ 1443  sudo su osiel_lbcm
+ 1444  sudo reboot now
+ 1445  sudo su osiel_lbcm
+ 1446  tmux ls
+ 1447  tmux a -t conda
+ 1448  conda env list
+ 1449  lefse
+ 1450  conda activate qiime2
+ 1451  conda info --envs
+ 1452  conda env create -n qiime2-metagenome-2024.5 --file https://data.qiime2.org/distro/metagenome/qiime2-metagenome-2024.5-py39-linux-conda.yml
+ 1453  cd ..
+ 1454  ls
+ 1455  jupyter notebook --ip 200.239.172.197 --port 4444 --no-browser
+ 1456  conda install -c conda-forge notebook
+ 1457  conda install -c conda-forge jupyter_contrib_nbextensions
+ 1458  sudo chgrp -R anaconda /opt/anaconda3
+ 1459  conda install -c conda-forge jupyter_contrib_nbextensions
+ 1460  conda install pip
+ 1461  jupyter notebook --ip 200.239.172.197 --port 4444 --no-browser
+ 1462  jupyter
+ 1463  exit
+ 1464  sudo su osiel_lbcm
+ 1465  conda env list
+ 1466  conda activate qiime2-metagenome-2024.5
+ 1467  cd /mnt/nupeb/
+ 1468  ls
+ 1469  cd rede-micro/
+ 1470  tmux new -s jupyter
+ 1471  exit
+ 1472  conda env list
+ 1473  sudo su osiel_lbcm
+ 1474  tmux a -t jupyter
+ 1475  tmux new -s jupyter
+ 1476  cd /mnt/nupeb/
+ 1477  jupyter
+ 1478  conda env list
+ 1479  conda activate qiime2-metagenome-2024.5
+ 1480  jupyter
+ 1481  conda install -c conda-forge jupyter_contrib_nbextensions
+ 1482  jupyter notebook jupyter notebook --ip 200.239.172.197 --port 4444 --no-browser
+ 1483  jupyter notebook --ip 200.239.172.197 --port 4444 --no-browser
+ 1484  jupyter notebook --ip 200.239.172.197 --port 8686 --no-browser
+ 1485  conda install -c conda-forge seaborn
+ 1486  sudo chgrp -R anaconda /opt/anaconda3/
+ 1487  jupyter notebook --ip 200.239.172.197 --port 8686 --no-browser
+ 1488  conda install conda-forge::statannot
+ 1489  jupyter notebook --ip 200.239.172.197 --port 8686 --no-browser
+ 1490  sudo chgrp -R anaconda /opt/anaconda3/
+ 1491  jupyter notebook --ip 200.239.172.197 --port 8686 --no-browser
+ 1492  conda env list
+ 1493  conda env create -n qiime2-amplicon-2024.5 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml
+ 1494  wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml
+ 1495  conda env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml
+ 1496  conda env list
+ 1497  conda activate qiime2-2023.7
+ 1498  exit
+ 1499  sudo su osiel_lbcm
+ 1500  exit
+ 1501  tmux ls
+ 1502  tmux a -t jupyter
+ 1503  tmux new -s jupyter
+ 1504  tmux new -s osiel
+ 1505  sudo adduser anaconda osiel_lbcm
+ 1506  sudo adduser osiel_lbcm anaconda
+ 1507  sudo adduser osiel_lbcm lbcm
+ 1508  tmux ls
+ 1509  tmux a -t osiel
+ 1510  tmux new -s osiel
+ 1511  tmux ls
+ 1512  docker env list
+ 1513  docker images
+ 1514  docker -rm biobakery/lefse ls
+ 1515  docker run -rm biobakery/lefse ls
+ 1516  docker run --rm biobakery/lefse ls
+ 1517  docker run --rm biobakery/lefse cat image_version.txt
+ 1518  docker run --rm biobakery/lefse pwd
+ 1519  docker run --rm biobakery/lefse qiime2_to_lefse.py
+ 1520  docker run --rm biobakery/lefse lefse
+ 1521  docker run --rm biobakery/lefse bash
+ 1522  docker run --it --rm biobakery/lefse bash
+ 1523  docker run -it --rm biobakery/lefse bash
+ 1524  docker run --rm biobakery/lefse qiime2lefse.py --help
+ 1525  ls
+ 1526  htop
+ 1527  du -h
+ 1528  du -h --max-depth 1 
+ 1529  du -h --max-depth 1 /
+ 1530  sudo du -h --max-depth 1 /
+ 1531  htop
+ 1532  sudo du -h --max-depth 1 /home/ 
+ 1533  dh -h
+ 1534  df -h
+ 1535  cd /mnt/
+ 1536  sudo du -h --max-depth 1 /mnt/nupeb/ 
+ 1537  sudo du -h --max-depth 1 /mnt/nupeb/lbcm/
+ 1538  sudo du -h --max-depth 1 /mnt/nupeb/lbcm/ruana/
+ 1539  ls
+ 1540  tmux new -s bkp
+ 1541  ls
+ 1542  cd progs/
+ 1543  ls
+ 1544  cd ..
+ 1545  ls
+ 1546  ls lmu-services/
+ 1547  ls lmu-services/lmu-lbcm-esther/
+ 1548  cd lmu-services/lmu-lbcm-esther/
+ 1549  ls
+ 1550  ls down/
+ 1551  less pipeline.sh 
+ 1552  less secrets/credentials.json 
+ 1553  tmux a -t bkp
+ 1554  ls
+ 1555  cd /mnt/nupeb/lbcm/
+ 1556  ls
+ 1557  ls sayonara/
+ 1558  cd ..
+ 1559  ls
+ 1560  ls lbcm
+ 1561  cd lbcm
+ 1562  ls osiel/
+ 1563  less osiel/run.sh
+ 1564  cd sayonara/
+ 1565  ls
+ 1566  du -h --max-depth 1 .
+ 1567  cd projeto_variantes/
+ 1568  ls
+ 1569  du -h --max-depth 1 .
+ 1570  ls mapBowtie2/
+ 1571  ls prinseq/
+ 1572  ls -lah prinseq/
+ 1573  rm prinseq/*bad*
+ 1574  sudo rm prinseq/*bad*
+ 1575  ls -lah prinseq/
+ 1576  tmux a -t bkp
+ 1577  du -h
+ 1578  df -h
+ 1579  htop
+ 1580  tmux ls a -t bkp
+ 1581  tmux a -t bkp
+ 1582  cd /mnt/nupeb/lbcm/ruana/
+ 1583  ls
+ 1584  cd download_cepas/
+ 1585  ls
+ 1586  ls strains
+ 1587  conda env list
+ 1588  tmux new -s osiel
+ 1589  tmux a -t osiel
+ 1590  htop
+ 1591  ls
+ 1592  cd ..
+ 1593  ls
+ 1594  rm -R reads
+ 1595  rm -Rf reads
+ 1596  sudo rm -Rf reads
+ 1597  df -h
+ 1598  ls
+ 1599  df -h
+ 1600  tmux a -t osiel
+ 1601  sudo chown -R osiel_lbcm ../osiel
+ 1602  tmux a -t osiel
+ 1603  tmux a -t bkp
+ 1604  htop
+ 1605  tmux a -t bkp
+ 1606  htop
+ 1607  df -h
+ 1608  tmux a -t bkp
+ 1609  htop
+ 1610  df -h
+ 1611  tmux a -t bkp
+ 1612  tmux ls
+ 1613  tmux a -t osiel
+ 1614  ls
+ 1615  cd rede-micro/
+ 1616  ls
+ 1617  ls datasets/
+ 1618  ls datasets/16S_classifiers_qiime2/
+ 1619  cd datasets/
+ 1620  ls
+ 1621  cd 16S_classifiers_qiime2/
+ 1622  ls
+ 1623  pwd
+ 1624  htop
+ 1625  conda env list
+ 1626  conda activate qiime2-2023.7
+ 1627  pip install scikit-learn
+ 1628  conda uninstall scikit-learn
+ 1629  pip uninstall scikit-learn
+ 1630  pip install scikit-learn=0.23.1
+ 1631  pip install scikit-learn==0.23.1
+ 1632  exit
+ 1633  tmux ls
+ 1634  tmux a -t jupyter
+ 1635  conda env list
+ 1636  wget https://data.qiime2.org/distro/core/qiime2-2022.2-py38-linux-conda.yml
+ 1637  conda env create -n qiime2-2022.2 --file qiime2-2022.2-py38-linux-conda.yml
+ 1638  tmux new -s conda
+ 1639  sudo adduser jennefer_goncalves_lbbm
+ 1640  sudo nano /etc/ssh/sshd_config
+ 1641  sudo service ssh reload
+ 1642  cd /mnt/nupeb/rede-micro/redemicro-jennefer/
+ 1643  ls
+ 1644  pwd
+ 1645  df -h
+ 1646  cd /mnt/nupeb/rede-micro/
+ 1647  ls
+ 1648  ls /home/
+ 1649  ls redemicro-jennefer/
+ 1650  df -h
+ 1651  tmux ls
+ 1652  htop
+ 1653  tmux new -s jupyter
+ 1654  ls
+ 1655  conda env list
+ 1656  wget https://data.qiime2.org/distro/core/qiime2-2022.2-py38-linux-conda.yml
+ 1657  ls
+ 1658  rm qiime2-2022.2-py38-linux-conda.yml.1
+ 1659  conda env create -n qiime2-2022.2 --file qiime2-2022.2-py38-linux-conda.yml
+ 1660  docker pull quay.io/qiime2/core:2022.2
+ 1661  docker run -t -i -v $(pwd):/data quay.io/qiime2/core:2022.2 qiime
+ 1662  tmux new -s qiime
+ 1663  cd /mnt/nupeb/
+ 1664  ld
+ 1665  ls
+ 1666  ls rede-micro/qiime2-classifiers/
+ 1667  tmux a -t qiime
+ 1668  mv rede-micro/datasets/16S_classifiers_qiime2/silva-138-99-515-806-nb-classifier.qza hi-fat-diet-microbiom/
+ 1669  tmux a -t qiime
+ 1670  htop
+ 1671  tmux a -t qiime
+ 1672  ls
+ 1673  conda env create -n qiime2-2022.2 --file qiime2-2022.2-py38-linux-conda.ym
+ 1674  conda env create -n qiime2-2022.2 --file qiime2-2022.2-py38-linux-conda.yml 
+ 1675  nano qiime2-2022.2-py38-linux-conda.yml 
+ 1676  conda env create -n qiime2-2022.2 --file qiime2-2022.2-py38-linux-conda.yml python=3.8
+ 1677  nano qiime2-2022.2-py38-linux-conda.yml 
+ 1678  conda env create -n qiime2-2022.2 python=3.8.13 --file qiime2-2022.2-py38-linux-conda.yml
+ 1679  wget https://data.qiime2.org/distro/core/qiime2-2022.5-py38-linux-conda.yml
+ 1680  wget https://data.qiime2.org/distro/core/qiime2-2021.11-py38-linux-conda.yml
+ 1681  conda env create -n qiime2-2021.11 --file qiime2-2021.11-py38-linux-conda.yml
+ 1682  nano qiime2-2021.11-py38-linux-conda.yml
+ 1683  grep 'sklearn' qiime2-2021.11-py38-linux-conda.yml 
+ 1684  nano qiime2-2021.11-py38-linux-conda.yml
+ 1685  grep 'learn' qiime2-2021.11-py38-linux-conda.yml 
+ 1686  htop
+ 1687  cd /mnt/nupeb/hi-fat-diet-microbiom/
+ 1688  ls
+ 1689  ls -lah silva-138-99-515-806-nb-classifier.qza 
+ 1690  watch ls -lah silva-138-99-515-806-nb-classifier.qza 
+ 1691  ls
+ 1692  htop
+ 1693  conda activate rescript
+ 1694  df -h
+ 1695  htop
+ 1696  qiime rescript --help
+ 1697  htop
+ 1698  scp --help
+ 1699  cd ..
+ 1700  cd nupeb/rede-micro/microbiom/
+ 1701  ls
+ 1702  [200~
+ 1703  eval `ssh-agent -s`
+ 1704  ssh-add ~/.ssh/key-microbiom
+ 1705  nano ~/.ssh/config
+ 1706  git add .
+ 1707  git push
+ 1708  git pull
+ 1709  git push
+ 1710  git add .
+ 1711  git push
+ 1712  git push origin main
+ 1713  ls nb-templates/
+ 1714  ls
+ 1715  git add .
+ 1716  git push
+ 1717  git remote -v
+ 1718  nano ~/.ssh/config
+ 1719  eval `ssh-agent -s`
+ 1720  git add .
+ 1721  git commit -m 'lefse'
+ 1722  git push
+ 1723  rm ~/.ssh/key-microbiom*
+ 1724  ssh-keygen -t ed25519 -C "lauromoraes@ufop.edu.br" -f ~/.ssh/key-microbiom
+ 1725  eval `ssh-agent -s`
+ 1726  ssh-add ~/.ssh/key-microbiom
+ 1727  cat ~/.ssh/key-microbiom
+ 1728  cat ~/.ssh/key-microbiom.pub 
+ 1729  git add .
+ 1730  git commit -m 'lefse'
+ 1731  git push
+ 1732  cd ..
+ 1733  cd redemicro-miliane-nutri/
+ 1734  ls
+ 1735  rm pipeline.sh 
+ 1736  wget -O pipeline.sh "https://raw.githubusercontent.com/lauromoraes/microbiom/main/pipeline.sh"
+ 1737  nano pipeline.sh 
+ 1738  chmod +x pipeline.sh 
+ 1739  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.5
+ 1740  conda env list
+ 1741  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1742  nano pipeline.sh 
+ 1743  whereis conda
+ 1744  nano pipeline.sh 
+ 1745  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1746  conda activate qiime2-2023.7
+ 1747  conda install papermill
+ 1748  conda deactivate
+ 1749  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1750  cd ..
+ 1751  cd redemicro-ana-flavia-nutri/
+ 1752  rm pipeline.sh 
+ 1753  wget -O pipeline.sh "https://raw.githubusercontent.com/lauromoraes/microbiom/main/pipeline.sh"
+ 1754  chmod +x pipeline.sh 
+ 1755  nano pipeline.sh 
+ 1756  nano proc.sh 
+ 1757  ./proc.sh 
+ 1758  nano pipeline.sh 
+ 1759  ./proc.sh 
+ 1760  ./pipeline.sh params/ana-flavia-all.yaml qiime2-2023.7
+ 1761  ./pipeline.sh params/ana-flavia-HSD-NCxHSD-NR-trim.yaml qiime2-2023.7
+ 1762  cd ..
+ 1763  cd microbiom/
+ 1764  git add .
+ 1765  git commit -m 'fix: set new idx'
+ 1766  git push
+ 1767  cd ..
+ 1768  cd redemicro-ana-flavia-nutri/
+ 1769  rm nb-templates/step-lefse-analysis.ipynb 
+ 1770  nano proc
+ 1771  nano proc.sh 
+ 1772  rm experiments/ana-flavia-all/nb-executed-steps/step-lefse-analysis-ana-flavia-all.ipynb
+ 1773  ./pipeline.sh params/ana-flavia-all.yaml qiime2-2023.7
+ 1774  ./proc.sh 
+ 1775  nano ./proc.sh 
+ 1776  ./proc.sh 
+ 1777  cd ..
+ 1778  cd redemicro-miliane-nutri/
+ 1779  rm pipeline.sh 
+ 1780  wget -O pipeline.sh "https://raw.githubusercontent.com/lauromoraes/microbiom/main/pipeline.sh"
+ 1781  chmod +x pipeline.sh 
+ 1782  rm nb-templates/step-lefse-analysis.ipynb 
+ 1783  rm experiments/miliane-CxAC-trim/nb-executed-steps/step-lefse-analysis-miliane-CxAC-trim.ipynb 
+ 1784  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1785  nano pipeline.sh 
+ 1786  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1787  nano pipeline.sh 
+ 1788  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1789  ls
+ 1790  cd experiments/
+ 1791  ls
+ 1792  cd ..
+ 1793  cd redemicro-ana-flavia-nutri/
+ 1794  ls
+ 1795  cd experiments/
+ 1796  ls
+ 1797  rm -R ana-flavia-HSD-NCxHSD-NR
+ 1798  cd ..
+ 1799  cd redemicro-miliane-nutri/
+ 1800  rm nb-templates/step-lefse-analysis.ipynb 
+ 1801  rm experiments/miliane-CxAC-trim/nb-executed-steps/step-lefse-analysis-miliane-CxAC-trim.ipynb 
+ 1802  nano pipeline.sh 
+ 1803  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1804  cd ..
+ 1805  cd microbiom/
+ 1806  git add .
+ 1807  git commit -m 'remove unused code'
+ 1808  git push
+ 1809  git add .
+ 1810  git commit -m 'remove unused code'
+ 1811  git push
+ 1812  cd ..
+ 1813  cd redemicro-miliane-nutri/
+ 1814  ls
+ 1815  rm nb-templates/step-lefse-analysis.ipynb 
+ 1816  rm experiments/miliane-CxAC-trim/nb-executed-steps/step-lefse-analysis-miliane-CxAC-trim.ipynb 
+ 1817  ./pipeline.sh params/miliane-CxAC-trim.yaml qiime2-2023.7
+ 1818  ls /home/
+ 1819  ls /home/miliane_fagundes_lanute/
+ 1820  sudo ls /home/miliane_fagundes_lanute/
+ 1821  sudo nano /etc/ssh/sshd_config
+ 1822  sudo cat /etc/ssh/sshd_config | grep 'miliane'
+ 1823  ls
+ 1824  tmux ls
+ 1825  tmux a -t qiime
+ 1826  tmux a -t jupyter
+ 1827  tmuxls
+ 1828  tmux ls
+ 1829  tmux a -t jupyter
+ 1830  tmux a -t qiime
+ 1831  htop
+ 1832  tmux a -t qiime
+ 1833  htop
+ 1834  tmux a -t qiime
+ 1835  htop
+ 1836  tmux a -t qiime
+ 1837  htop
+ 1838  tmux a -t qiime
+ 1839  df -h
+ 1840  ls /tmp/
+ 1841  ls -lah /tmp/
+ 1842  less /tmp/qiime2-q2cli-err-w4bju5l8.log 
+ 1843  tmux a -t qiime
+ 1844  htop
+ 1845  ping 200.239.172.179
+ 1846  tmux ls
+ 1847  tmux a -t qiime
+ 1848  exit
+ 1849  cd /mnt/nupeb/
+ 1850  ls
+ 1851  jupyter notebook --no-browser --ip 200.239.172.197 --port 8686
+ 1852  conda env list
+ 1853  conda activate qiime2-2023.7
+ 1854  jupyter notebook --no-browser --ip 200.239.172.197 --port 8686
+ 1855  conda deactivate
+ 1856  ls /home/
+ 1857  ls /home/lauro/
+ 1858  wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml
+ 1859  conda env create -n qiime2-2023.7.1 --file qiime2-2023.7-py38-linux-conda.yml
+ 1860  wget https://data.qiime2.org/distro/core/qiime2-2021.11-py38-linux-conda.yml
+ 1861  conda env create -n qiime2-2021.11 --file qiime2-2021.11-py38-linux-conda.yml
+ 1862  conda env list
+ 1863  conda activate qiime2-2023.7.1
+ 1864  jupyter notebook --ip 200.239.172.197 --port 4444
+ 1865  jupyter notebook --ip 200.239.172.197 --port 4444 --no-browser
+ 1866  jupyter notebook --ip 200.239.172.197 --port 8686 --no-browser
+ 1867  tmux ls
+ 1868  tmux a -t jupyter
+ 1869  tmux --help
+ 1870  tmux -h
+ 1871  tmux --kill jupyter
+ 1872  tmux --kill-session -t  jupyter
+ 1873  tmux kill-session -t  jupyter
+ 1874  tmux ls
+ 1875  tmux a -t upload
+ 1876  tmux a -t qiime
+ 1877  tmux new -s jupyter
+ 1878  sudo su
+ 1879  cd /mnt/nupeb/lbcm/osiel/
+ 1880  ls
+ 1881  split --help
+ 1882  ls
+ 1883  tar -cvzf annotation
+ 1884  tar -cvzf annotation.tar.gz annotation/
+ 1885  ls -lah
+ 1886  gdrive files upload --parent 1ArEkwtKsAMhKf14k6gdzNxiQDewHb5_2 annotation.tar.gz 
+ 1887  gdrive files upload --parent 1ArEkwtKsAMhKf14k6gdzNxiQDewHb5_2 maskgenomes.tar.gz 
+ 1888  ls 
+ 1889  ls annotation
+ 1890  ls -lah annotation
+ 1891  docker run --rm -v /mnt/nupeb/lbcm/osiel:/data staphb/masurca ls
+ 1892  docker run --rm -v /mnt/nupeb/lbcm/osiel:/data staphb/masurca rm -r annotation/
+ 1893  ls
+ 1894  docker run --rm -v /mnt/nupeb/lbcm/osiel:/data staphb/masurca rm -r funannotate_compare/
+ 1895  ls -lah
+ 1896  cd /
+ 1897  cd home/
+ 1898  ls
+ 1899  cd osiel_lbcm/
+ 1900  sudo cd osiel_lbcm/
+ 1901  sudo cd osiel_lbcm
+ 1902  cd osiel_lbcm
+ 1903  sudo su
+ 1904  tmux new -s upload
+ 1905  tmux a -t upload
+ 1906  split --help
+ 1907  tmux a -t upload
+ 1908  sudo su
+ 1909  cd /mnt/nupeb/lbcm/osiel/
+ 1910  tar -cvzf maskgenomes.tar.gz maskgenomes
+ 1911  tmux a -t upload
+ 1912  ls
+ 1913  ls -lah
+ 1914  scp -r OrthoFinder.tar.gz -P 4444 lauro@200.239.172.179:/home/lauro
+ 1915  ping lauro@200.239.172.179
+ 1916  ping 200.239.172.179
+ 1917  ssh -p 4444 lauro@200.239.172.179
+ 1918  scp --help
+ 1919  scp -h
+ 1920  rsync
+ 1921  rsync -r OrthoFinder.tar.gz -P 4444 lauro@200.239.172.179:/home/lauro
+ 1922  rsync -r OrthoFinder.tar.gz -P 4444 lauro@200.239.172.179:/home/lauro/OrthoFinder.tar.gz
+ 1923  rsync -r -P -e "ssh -p 4444" OrthoFinder.tar.gz lauro@200.239.172.179:/home/lauro/OrthoFinder.tar.gz
+ 1924  ssh -p 4444 lauro@200.239.172.179
+ 1925  ls
+ 1926  scp -r -P 4444 OrthoFinder.tar.gz lauro@200.239.172.179:/home/lauro
+ 1927  sftp
+ 1928  cd ..
+ 1929  ls
+ 1930  eval `ssh-agent -s`
+ 1931  ssh-add ~/.ssh/key-ana-bioserver03
+ 1932  cd rede-micro/redemicro-ana-flavia-nutri/
+ 1933  ls
+ 1934  nano ~/.ssh/config 
+ 1935  git add .
+ 1936  git commit -m 'lefse'
+ 1937  git push
+ 1938  ssh -p 4444 lauro@200.239.172.179
+ 1939  tmux ls
+ 1940  tmux a -t jupyter
+ 1941  sudo reboot now
+ 1942  tmux ls
+ 1943  tmux new -s jupyter
+ 1944  htop
+ 1945  cd /mnt/nupeb/lbcm/
+ 1946  ls
+ 1947  git clone git@github.com:lauromoraes/snps-qtl-selection.git
+ 1948  ls
+ 1949  cd snps-qtl-selection/
+ 1950  ls
+ 1951  cd /mnt/nupeb/
+ 1952  ls
+ 1953  cd lbcm/snps-qtl-selection/
+ 1954  ls
+ 1955  ./snps-selection.py 
+ 1956  ./snps-selection.py
+ 1957  ls
+ 1958  ls -lah
+ 1959  chmod +x snps-selection.py 
+ 1960  ls
+ 1961  ./snps-selection.py 
+ 1962  ls
+ 1963  ls -lah
+ 1964  chmod +x snps-selection.py 
+ 1965  ls -lah
+ 1966  ./snps-selection.py 
+ 1967  ls
+ 1968  cd /mnt/nupeb/
+ 1969  ls
+ 1970  cd lbcm/
+ 1971  ls
+ 1972  cd /mnt/nupeb/lbcm/snps-qtl-selection/
+ 1973  ls
+ 1974  chmod +x snps-selection.py; 
+ 1975  chmod +x snps-selection.py; ./snps-selection.py;
+ 1976  chmod +x snps-selection.py; ./snps-selection.py; ls
+ 1977  iconv
+ 1978  iconv -h
+ 1979  iconv -f WINDOWS-1252 -t UTF-8 snps-selection.py; chmod +x snps-selection.py; ./snps-selection.py; ls
+ 1980  chmod +x snps-selection.py; ./snps-selection.py; ls
+ 1981  sed -i 's/\r//' snps-selection.py; chmod +x snps-selection.py; ./snps-selection.py; ls
+ 1982  sed -i 's/\r//' snps-selection.py; chmod +x snps-selection.py; python3 ./snps-selection.py; ls
+ 1983  ls
+ 1984  chmod +x snps-selection.py; python3 ./snps-selection.py;
+ 1985  ls
+ 1986  ls -lat
+ 1987  ls -t
+ 1988  rm without_specials_ployd_corrected_variantsfile_Annotated.vcf bug_variantsfile_Annotated.vcf ployd_corrected_variantsfile_Annotated.vcf 
+ 1989  cd /mnt/nupeb/lbcm/snps-qtl-selection/
+ 1990  ls
+ 1991  python3 snps-selection.py
+ 1992  ls
+ 1993  python3 snps-selection.py 
+ 1994  ls
+ 1995  ls -lah
+ 1996  ls -t
+ 1997  rm *without*
+ 1998  ls -t
+ 1999  rm special_cases_ployd_corrected_variantsfile_Annotated.vcf bug_variantsfile_Annotated.vcf 
+ 2000  ls -t
+ 2001  rm ployd_corrected_variantsfile_Annotated.vcf 
+ 2002  ls -t
+ 2003  git add .
+ 2004  git commit -m 'first corrections'
+ 2005  git push
+ 2006  eval `ssh-agent -s`
+ 2007  git push
+ 2008  ssh-keygen -t ed25519 -C "lauromoraes@ufop.edu.br" -f ~/.ssh/snsps-bio3-key
+ 2009  eval `ssh-agent -s`
+ 2010  ssh-add ~/.ssh/snsps-bio3-key
+ 2011  nano ~/.ssh/config 
+ 2012  git push
+ 2013  cat ~/.ssh/snsps-bio3-key.pub 
+ 2014  git push
+ 2015  git checkout main
+ 2016  git pull
+ 2017  git checkout extract-names
+ 2018  git push
+ 2019  git push origin extract-names
+ 2020  git push origin main
+ 2021  git checkout main
+ 2022  git merge extract-names
+ 2023  git checkout extract-names
+ 2024  git fetch origin
+ 2025  git checkout main
+ 2026  git pull origin main
+ 2027  git checkout extract-names 
+ 2028  git merge main
+ 2029  git push
+ 2030  git branch -d extract-names 
+ 2031  git branch -D extract-names 
+ 2032  git checkout main
+ 2033  git branch -d extract-names 
+ 2034  git push origin --delete extract-names
+ 2035  git remote remove origin
+ 2036  ls
+ 2037  git remote add origin git@github.com:lauromoraes/snps-qtl-selection.git
+ 2038  git push -u origin main
+ 2039  cat ~/.ssh/snsps-bio3-key.pub 
+ 2040  git push -u origin main
+ 2041  git pull
+ 2042  git push -u origin main
+ 2043  git fetch origin
+ 2044  git pull origin main
+ 2045  git push origin main
+ 2046  git merge origin/main
+ 2047  ls
+ 2048  git remote remove origin
+ 2049  git remote add origin git@github.com:lauromoraes/snps-qtl-selection.git
+ 2050  git branch -M main
+ 2051  git push -u origin main
+ 2052  cat ~/.ssh/snsps-bio3-key.pub 
+ 2053  git push -u origin main
+ 2054  ls
+ 2055  htop
+ 2056  history 
+ 2057  history >> snps.log
