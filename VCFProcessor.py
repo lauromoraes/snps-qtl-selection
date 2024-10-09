@@ -22,6 +22,9 @@ class VCFProcessor:
         self.bug_lines = list()
         self.multiple_alleles_lines = list()
         self.not_single_genotype_lines = list()
+        self.equal_genotype_lines = list()
+        self.low_reads_lines = list()
+        self.insufficient_diff_lines = list()
 
         
 
@@ -115,9 +118,37 @@ class VCFProcessor:
 
             parental_inf_info = fields[self.parental_inf_idx].split(':')
             parental_sup_info = fields[self.parental_sup_idx].split(':')
+            pool_sup_info = fields[self.pool_sup_idx].split(':')
+            pool_rnd_info = fields[self.pool_rnd_idx].split(':')
 
-            # self.logger.info(f'Parental inf info: {parental_inf_info}')
-            # self.logger.info(f'Parental sup info: {parental_sup_info}')
+
+            # Verify if parental_sup genotype and parental_inf genotype are equal
+            genotype_sup = parental_sup_info[0]
+            genotype_inf = parental_inf_info[0]
+
+            if genotype_sup == genotype_inf:
+                self.equal_genotype_lines.append(row)
+                continue
+
+
+            # Verify if allele counts are less than 3
+            samples_fields = [parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info]
+
+            for sample in samples_fields:
+                counts = self.get_counts(sample)
+                if sum(counts) <= 3:
+                    self.low_reads_lines.append(row)
+                    continue
+
+            # Verify if the difference in the number of reads is less than 1
+            parental_sup_counts = self.get_counts(parental_sup_info)
+            parental_inf_counts = self.get_counts(parental_inf_info)
+            parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
+            parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
+
+            if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
+                self.insufficient_diff_lines.append(row)
+                continue
 
 
             if flag:
@@ -130,15 +161,45 @@ class VCFProcessor:
 
         if verbose:
             self.logger.info(f'Corrected genotypes successfully')
-            self.logger.info(f'Number of bug lines: {len(self.bug_lines)}')
-            self.logger.info(f'Number of not single genotype lines: {len(self.not_single_genotype_lines)}')
             self.logger.info(f'Number of corrected lines: {len(self.variant_lines)}')
+            self.logger.info(f'Number of not single genotype lines: {len(self.not_single_genotype_lines)}')
+            self.logger.info(f'Number of multiple alleles lines: {len(self.multiple_alleles_lines)}')
+            self.logger.info(f'Number of equal genotype lines: {len(self.equal_genotype_lines)}')
+            self.logger.info(f'Number of low reads lines: {len(self.low_reads_lines)}')
+            self.logger.info(f'Number of insufficient diff lines: {len(self.insufficient_diff_lines)}')
+            self.logger.info(f'Number of bug lines: {len(self.bug_lines)}')
+
 
         return selected_rows
 
+    def valid_line(self, sample_info: list[str]) -> bool:
+        parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info = sample_info
+        genotype_sup = [x.split(':')[0] for x in parental_sup_info]
+        genotype_inf = [x.split(':')[0] for x in parental_inf_info]
+        if genotype_sup == genotype_inf:
+            print(f'DISCARD:  parental_sup_counts ({genotype_sup}) and parental_inf ({genotype_inf}) equal.')
+            return False
+
+        for sample in sample_info:
+            counts = self.get_counts(sample)
+            if sum(counts) <= 3:
+                print('DISCARD: insuficient number of reads.')
+                return False
+
+        parental_sup_counts = self.get_counts(parental_sup_info)
+        parental_inf_counts = self.get_counts(parental_inf_info)
+        parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
+        parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
+
+        if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
+            print(f'DISCARD: difference in the number of reads insufficient. parental_sup_counts({parental_sup_counts}) and parental_inf_counts({parental_inf_counts})')
+            return False
+
+        return True
+
     def write_preprocessed_files(self, verbose: bool = False) -> None:
-        file_types = ['corrected', 'bug', 'not_single_genotype', 'multiple_alleles']
-        lines_list = [self.variant_lines, self.bug_lines, self.not_single_genotype_lines, self.multiple_alleles_lines]
+        file_types = ['corrected', 'bug', 'not_single_genotype', 'multiple_alleles', 'equal_genotype', 'low_reads', 'insufficient_diff']
+        lines_list = [self.variant_lines, self.bug_lines, self.not_single_genotype_lines, self.multiple_alleles_lines, self.equal_genotype_lines, self.low_reads_lines, self.insufficient_diff_lines]
         for i, lines in enumerate(lines_list):
             basename = os.path.basename(self.vcf_file_path)
             new_file_path = os.path.join(self.output_folder_path, f'{file_types[i]}_{basename}')
@@ -148,33 +209,21 @@ class VCFProcessor:
             if verbose:
                 self.logger.info(f'{file_types[i].capitalize()} VCF file written successfully: {new_file_path}')
 
-
-    def write_corrected_vcf_file(self, verbose: bool = False) -> None:
-        basename = os.path.basename(self.vcf_file_path)
-        new_file_path = os.path.join(self.output_folder_path, 'corrected_' + basename)
-        with open(new_file_path, 'w') as f:
-            f.write(''.join(self.metadata_lines))
-            f.write(''.join(self.variant_lines))
-        if verbose:
-            self.logger.info(f'Corrected VCF file written successfully: {new_file_path}')
-
-    def write_bug_file(self, verbose: bool = False) -> None:
-        basename = os.path.basename(self.vcf_file_path)
-        new_file_path = os.path.join(self.output_folder_path, 'bug_' + basename)
-        with open(new_file_path, 'w') as f:
-            f.write(''.join(self.metadata_lines))
-            f.write(''.join(self.bug_lines))
-        if verbose:
-            self.logger.info(f'Bug VCF file written successfully: {new_file_path}')
-
-    def write_not_single_genotype_file(self, verbose: bool = False) -> None:
-        basename = os.path.basename(self.vcf_file_path)
-        new_file_path = os.path.join(self.output_folder_path, 'not_single_genotype_' + basename)
-        with open(new_file_path, 'w') as f:
-            f.write(''.join(self.metadata_lines))
-            f.write(''.join(self.not_single_genotype_lines))
-        if verbose:
-            self.logger.info(f'Not single genotype VCF file written successfully: {new_file_path}')
+    def filter(self, verbose: bool = False) -> None:
+        filters = self.config_obj['filters']
+        for f in filters:
+            if f['name'] == 'least_one':
+                self.filter_least_one(f['threshold'], verbose=verbose)
+            elif f['name'] == 'sup_limit':
+                self.filter_sup_limit(f['threshold'], verbose=verbose)
+            elif f['name'] == 'greater':
+                self.filter_greater(verbose=verbose)
+            elif f['name'] == 'relaxed_greater':
+                self.filter_relaxed_greater(f['threshold'], verbose=verbose)
+            elif f['name'] == 'sup_limit_avg_std':
+                self.filter_sup_limit_avg_std(f['threshold'], f['avg'], f['std'], verbose=verbose)
+            else:
+                self.logger.error(f'Filter {f["name"]} not found.')
 
 
     # Method to set the samples indexes in the VCF file using parentals and pools
@@ -226,105 +275,105 @@ class VCFProcessor:
         i = counts.index(max(counts))
         return nucs[i], counts
 
-    def correct_genotype(self, nuc_ref: str, nuc_alt: str, sample_info: str):
-        fields = sample_info.split(':')
-        valids = ['0', '1', '.']
-        ganotypes = fields[0].split('/')
-        flag = True
-
-        if len(ganotypes) > 1:
-            for genotype in ganotypes:
-                if genotype not in valids:
-                    print('Not valid {}'.format(genotype))
-                    flag = False
-                    break
-
-            if flag:
-                nuc, counts = self.get_major_nuc(fields[4])
-                if nuc == nuc_ref:
-                    fields[0] = '0'
-                elif nuc == nuc_alt:
-                    fields[0] = '1'
-                else:
-                    print('BUG', fields[0], nuc, nuc_ref, nuc_alt, counts)
-                    return False
-
-        corrected_samples_info = ':'.join(fields)
-        return corrected_samples_info
-
-    def correct_variants(self):
-        new_file_path = 'ployd_corrected_' + self.file_path
-        bug_file_path = 'bug_' + self.file_path
-        new_lines = list()
-        bug_lines = list()
-        with open(self.file_path, 'r') as f:
-            for idx, line in enumerate(f.readlines()):
-                if not line.startswith('#'):
-                    flag = True
-                    fields = line.split('\t')
-                    nuc_ref = fields[3]
-                    nuc_alt = fields[4]
-                    if len(nuc_ref) > 1 or len(nuc_alt) > 1:
-                        new_lines.append(line)
-                        continue
-                    for i in range(-4, -2):
-                        corrected = self.correct_genotype(nuc_ref, nuc_alt, fields[i])
-                        if corrected:
-                            fields[i] = corrected
-                        else:
-                            flag = False
-                    if flag:
-                        new_line = '\t'.join([str(x) for x in fields]) + '\n'
-                        new_lines.append(new_line)
-                    else:
-                        new_lines.append(line)
-                        bug_lines.append(line)
-                else:
-                    new_lines.append(line)
-                    bug_lines.append(line)
-        with open(new_file_path, 'w') as f:
-            f.write(''.join(new_lines))
-        with open(bug_file_path, 'w') as f:
-            f.write(''.join(bug_lines))
-        return new_file_path
-
-    def filter_special_cases(self):
-        new_file_path = 'without_specials_cases_' + self.file_path
-        filtered_out_file_path = 'special_cases_' + self.file_path
-        new_filtered_lines = list()
-        new_lines = list()
-
-        with open(self.file_path, 'r') as f:
-            for line in f.readlines():
-                line = line.strip()
-                if len(line) == 0:
-                    continue
-                if not line.startswith('#'):
-                    fields = line.split('\t')
-                    try:
-                        nuc_ref = fields[3]
-                    except:
-                        print(fields)
-                    nuc_alt = fields[4]
-                    if len(nuc_ref) == 1 and len(nuc_alt) == 1:
-                        new_lines.append(line)
-                    else:
-                        new_filtered_lines.append(line)
-                elif line.startswith('#CHROM'):
-                    fields = line[:-1].split('\t')
-                    sample_names = fields[-4:]
-                    fields.extend([f'%{x}' for x in sample_names])
-                    new_line = '\t'.join(fields) + '\n'
-                    new_lines.append(new_line)
-                else:
-                    new_lines.append(line)
-
-        with open(new_file_path, 'w') as f:
-            f.write('\n'.join(new_lines))
-        with open(filtered_out_file_path, 'w') as f:
-            f.write('\n'.join(new_filtered_lines))
-
-        return new_file_path
+    # def correct_genotype(self, nuc_ref: str, nuc_alt: str, sample_info: str):
+    #     fields = sample_info.split(':')
+    #     valids = ['0', '1', '.']
+    #     ganotypes = fields[0].split('/')
+    #     flag = True
+    #
+    #     if len(ganotypes) > 1:
+    #         for genotype in ganotypes:
+    #             if genotype not in valids:
+    #                 print('Not valid {}'.format(genotype))
+    #                 flag = False
+    #                 break
+    #
+    #         if flag:
+    #             nuc, counts = self.get_major_nuc(fields[4])
+    #             if nuc == nuc_ref:
+    #                 fields[0] = '0'
+    #             elif nuc == nuc_alt:
+    #                 fields[0] = '1'
+    #             else:
+    #                 print('BUG', fields[0], nuc, nuc_ref, nuc_alt, counts)
+    #                 return False
+    #
+    #     corrected_samples_info = ':'.join(fields)
+    #     return corrected_samples_info
+    #
+    # def correct_variants(self):
+    #     new_file_path = 'ployd_corrected_' + self.file_path
+    #     bug_file_path = 'bug_' + self.file_path
+    #     new_lines = list()
+    #     bug_lines = list()
+    #     with open(self.file_path, 'r') as f:
+    #         for idx, line in enumerate(f.readlines()):
+    #             if not line.startswith('#'):
+    #                 flag = True
+    #                 fields = line.split('\t')
+    #                 nuc_ref = fields[3]
+    #                 nuc_alt = fields[4]
+    #                 if len(nuc_ref) > 1 or len(nuc_alt) > 1:
+    #                     new_lines.append(line)
+    #                     continue
+    #                 for i in range(-4, -2):
+    #                     corrected = self.correct_genotype(nuc_ref, nuc_alt, fields[i])
+    #                     if corrected:
+    #                         fields[i] = corrected
+    #                     else:
+    #                         flag = False
+    #                 if flag:
+    #                     new_line = '\t'.join([str(x) for x in fields]) + '\n'
+    #                     new_lines.append(new_line)
+    #                 else:
+    #                     new_lines.append(line)
+    #                     bug_lines.append(line)
+    #             else:
+    #                 new_lines.append(line)
+    #                 bug_lines.append(line)
+    #     with open(new_file_path, 'w') as f:
+    #         f.write(''.join(new_lines))
+    #     with open(bug_file_path, 'w') as f:
+    #         f.write(''.join(bug_lines))
+    #     return new_file_path
+    #
+    # def filter_special_cases(self):
+    #     new_file_path = 'without_specials_cases_' + self.file_path
+    #     filtered_out_file_path = 'special_cases_' + self.file_path
+    #     new_filtered_lines = list()
+    #     new_lines = list()
+    #
+    #     with open(self.file_path, 'r') as f:
+    #         for line in f.readlines():
+    #             line = line.strip()
+    #             if len(line) == 0:
+    #                 continue
+    #             if not line.startswith('#'):
+    #                 fields = line.split('\t')
+    #                 try:
+    #                     nuc_ref = fields[3]
+    #                 except:
+    #                     print(fields)
+    #                 nuc_alt = fields[4]
+    #                 if len(nuc_ref) == 1 and len(nuc_alt) == 1:
+    #                     new_lines.append(line)
+    #                 else:
+    #                     new_filtered_lines.append(line)
+    #             elif line.startswith('#CHROM'):
+    #                 fields = line[:-1].split('\t')
+    #                 sample_names = fields[-4:]
+    #                 fields.extend([f'%{x}' for x in sample_names])
+    #                 new_line = '\t'.join(fields) + '\n'
+    #                 new_lines.append(new_line)
+    #             else:
+    #                 new_lines.append(line)
+    #
+    #     with open(new_file_path, 'w') as f:
+    #         f.write('\n'.join(new_lines))
+    #     with open(filtered_out_file_path, 'w') as f:
+    #         f.write('\n'.join(new_filtered_lines))
+    #
+    #     return new_file_path
 
     def get_lines(self):
         metadata_lines = list()
@@ -356,30 +405,6 @@ class VCFProcessor:
         counts = [int(x) for x in sample_info[4].split(',')]
         return counts
 
-    def valid_line(self, sample_info: list[str]) -> bool:
-        parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info = sample_info
-        genotype_sup = [x.split(':')[0] for x in parental_sup_info]
-        genotype_inf = [x.split(':')[0] for x in parental_inf_info]
-        if genotype_sup == genotype_inf:
-            print(f'DISCARD:  parental_sup_counts ({genotype_sup}) and parental_inf ({genotype_inf}) equal.')
-            return False
-
-        for sample in sample_info:
-            counts = self.get_counts(sample)
-            if sum(counts) <= 3:
-                print('DISCARD: insuficient number of reads.')
-                return False
-
-        parental_sup_counts = self.get_counts(parental_sup_info)
-        parental_inf_counts = self.get_counts(parental_inf_info)
-        parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
-        parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
-
-        if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
-            print(f'DISCARD: difference in the number of reads insufficient. parental_sup_counts({parental_sup_counts}) and parental_inf_counts({parental_inf_counts})')
-            return False
-
-        return True
 
     def least_one(self, pool_sup_info, allele_nuc):
         allele_nuc_idx = self.get_nuc_index(allele_nuc)

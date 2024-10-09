@@ -104,6 +104,8 @@ if __name__ == '__main__':
     vcf_processor.correct_genotypes(verbose=True)
     vcf_processor.write_preprocessed_files(verbose=True)
 
+    # vcf_processor.filter(verbose=True)
+
     # Log the end of the program
     logging.info('Program finished successfully.')
 
