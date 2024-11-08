@@ -2,6 +2,10 @@
 Script for custom SNPs selection in QTL study using *vcf* files as input.
 
 # Config files
+
+
+
+Example:
 ```
 vcf_file_path: "./variantsfile_Annotated.vcf"
 output_folder_path: "./vcf_filtered"
