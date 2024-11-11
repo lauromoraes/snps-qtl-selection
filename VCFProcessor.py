@@ -249,56 +249,14 @@ class VCFProcessor:
         lines_list = [self.variant_lines, self.bug_lines, self.not_single_genotype_lines, self.multiple_alleles_lines, self.equal_genotype_lines, self.low_reads_lines, self.insufficient_diff_lines]
         for i, lines in enumerate(lines_list):
             basename = os.path.basename(self.vcf_file_path)
-            new_file_path = os.path.join(self.output_folder_path, f'{file_types[i]}_{basename}')
+            preprocessed_folder = os.path.join(self.output_folder_path, 'preprocessed')
+            os.system(f'mkdir -p {preprocessed_folder}')
+            new_file_path = os.path.join(preprocessed_folder, f'{file_types[i]}_{basename}')
             with open(new_file_path, 'w') as f:
                 f.write(''.join(self.metadata_lines))
                 f.write(''.join(lines))
             if verbose:
                 self.logger.info(f'{file_types[i].capitalize()} VCF file written successfully: {new_file_path}')
-
-    # def set_filters(self, verbose: bool = True) -> None:
-    #     '''
-    #     Method to set the filters to be applied in the VCF file
-    #     :param verbose: if True, print the log messages
-    #     :return: None
-    #     '''
-    #     self.filters_info = self.config_obj['filters']
-    #     self.filters = {f['name']: None for f in self.filters_info}
-    #
-    #     if verbose:
-    #         self.logger.info(f'Filters set successfully: {self.filters_info}')
-    #
-    #     for f in self.filters_info:
-    #         if verbose:
-    #             self.logger.info(f'Applying filter: {f["name"]}:\n{f}')
-    #
-    #         # Get the parameters of the filter
-    #         if 'parameters' in f.keys():
-    #             params = f['parameters']
-    #         else:
-    #             self.logger.warning(f'Filter {f["name"]} does not have parameters.')
-    #
-    #         # Apply the filter
-    #         if f['name'] == 'at_least':
-    #             n_reads = int(params['n_reads'])
-    #             self.filters[f['name']] = {'func': self.least_one, 'args': [n_reads]}
-    #             self.logger.info(f'Filtering variants with at least {n_reads} reads.')
-    #             # self.filter_least_one(n_reads, verbose=verbose)
-    #             pass
-    #         elif f['name'] == 'percent_threshold':
-    #             threshold = float(params['threshold']) / 100.
-    #             self.logger.info(f'Filtering variants with percentage of reads greater than {threshold}.')
-    #             # self.filter_sup_limit(f['threshold'], verbose=verbose)
-    #             pass
-    #         else:
-    #             self.logger.error(f'Filter {f["name"]} not found.')
-    #
-
-    # TODO: Need this?
-    # Method to set the samples indexes in the VCF file using parentals and pools
-    def set_samples_idx(self):
-        samples_cols = [-4, -3, -2, -1]
-        self.parental_sup_idx
 
 
     def get_header_info(self, verbose: bool = False) -> str:
@@ -522,21 +480,7 @@ class VCFProcessor:
                 filtered_lines.append(l)
 
         return output_lines, filtered_lines
-            
 
-    def set_output_file_name(self, eval_type: int, **kwargs) -> str:
-        new_file_path = None
-        if eval_type == 0:
-            new_file_path = 'filtered_' + 'least_one_' + self.file_path
-        elif eval_type == 1:
-            new_file_path = 'filtered_' + 'sup_limit_{}_'.format((str(kwargs['threshold']))) + self.file_path
-        elif eval_type == 2:
-            new_file_path = 'filtered_' + 'greater_' + self.file_path
-        elif eval_type == 3:
-            new_file_path = 'filtered_' + 'relaxed_greater_{}_'.format((str(kwargs['threshold']))) + self.file_path
-        elif eval_type == 4:
-            new_file_path = 'filtered_' + 'sup_limit_{}_avg_{}_std_{}_'.format((str(kwargs['threshold'])), str(kwargs['avg']), str(kwargs['std'])) + self.file_path
-        return new_file_path
 
     def get_allele(self, genotype: str, ref: str, alt: str) -> str:
         alelo_sup = ref if genotype == '0' else alt
@@ -608,43 +552,3 @@ class VCFProcessor:
                     self.logger.info(f'Discarded variants written to {filtered_file_path}')
             else:
                 self.logger.warning(f'No lines to write in the filtered VCF file: {filter_name}_{os.path.basename(self.vcf_file_path)}')
-
-
-
-
-
-    def filter_by_compare(self, eval_type=0, **kwargs):
-        # Set the name of the output file
-        new_file_path = self.set_output_file_name(eval_type, **kwargs)
-        # Check if is a valid output file name
-        if not new_file_path:
-            return
-
-        metadata_lines, variant_lines = self.get_lines()
-        output_lines = metadata_lines
-
-        sample_order = [self.parental_sup_idx, self.parental_inf_idx, self.pool_sup_idx, self.pool_rnd_idx]
-
-        for line in variant_lines:
-            line = line.strip() # Remove the '\n' character
-            if len(line) == 0: # Check if the line is empty
-                continue
-
-            # Get the info fields of the line
-            # sample_order = [-4, -3, -2, -1]
-
-            var_obj = VariantLine(line=line, samples_idx=sample_order)
-            allele_ref = var_obj.allele_ref
-            allele_alt = var_obj.allele_alt
-            sample_info = var_obj.sample_info
-
-            # Check if the reference and alternative alleles have length 1 and if the line is valid
-            if len(allele_ref) == 1 and len(allele_alt) == 1 and self.valid_line(sample_info):
-                # Apply the filter criteria to the line
-                filtered_out = self.filter_cases(eval_type=eval_type, ref=allele_ref, alt=allele_alt, sample_info=sample_info, **kwargs)
-                # Check if the line was not filtered out
-                if not filtered_out:
-                    output_lines.append(line)
-
-        with open(new_file_path, 'w') as f:
-            f.write(''.join(output_lines))

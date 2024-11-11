@@ -2,8 +2,8 @@
 # a YAML file. The filters are applied in the order they are listed in the YAML file. The filters are applied to the
 # VCF file.
 
-vcf_file_path: "./variantsfile_Annotated.vcf"
-output_folder_path: "./vcf_filtered"
+vcf_file_path: "variantsfile_Annotated.vcf"
+output_folder_path: "vcf_filtered"
 
 parental_sup_column: "Samplen206_"
 parental_inf_column: "Samplen205_"
