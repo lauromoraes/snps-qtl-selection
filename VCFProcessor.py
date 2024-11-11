@@ -62,6 +62,11 @@ class VCFProcessor:
         self.variant_lines = None
 
     def read_config(self, config_file_path: str) -> dict:
+        '''
+        Method to read the configuration file and set the attributes of the class
+        :param config_file_path:
+        :return:
+        '''
         with open(config_file_path, 'r') as f:
             try:
                 config = yaml.safe_load(f)
@@ -85,6 +90,11 @@ class VCFProcessor:
         return config
 
     def load_vcf_file(self, verbose: bool = False) -> None:
+        '''
+        Method to read the VCF file and separate the metadata lines from the variant lines
+        :param verbose:
+        :return:
+        '''
         with open(self.vcf_file_path, 'r') as f:
             try:
                 lines = f.readlines()
@@ -99,6 +109,14 @@ class VCFProcessor:
                 sys.exit(1)
 
     def select_most_freq_genotype(self, sample_info: str, nuc_ref: str, nuc_alt: str,  verbose: bool = False) -> str:
+        '''
+        Method to select the most frequent genotype in the sample info field and correct it to 0 or 1
+        :param sample_info:
+        :param nuc_ref:
+        :param nuc_alt:
+        :param verbose:
+        :return:
+        '''
         fields = sample_info.split(':')
         valids = ['0', '1', '.']
         genotypes = fields[0].split('/')
@@ -122,11 +140,18 @@ class VCFProcessor:
                     if verbose:
                         self.logger.info(f'BUG: {fields[0]}, {nuc}, {nuc_ref}, {nuc_alt}, {counts}')
                     return False
+        else:
+            self.logger.info(f'BUG: {fields[0]}')
 
         corrected_samples_info = ':'.join(fields)
         return corrected_samples_info
 
     def correct_genotypes(self, verbose: bool = False) -> list[str]:
+        '''
+        Method to correct the genotypes of the variant lines
+        :param verbose:
+        :return:
+        '''
         selected_rows = list()
         for i, row in enumerate(self.variant_lines):
             flag = True
@@ -143,7 +168,8 @@ class VCFProcessor:
                         flag = False
             else:
                 if len(nuc_ref.split(',')) > 1 or len(nuc_alt.split(',')) > 1:
-                    # self.logger.info(f'Variant with multiple alleles: {fields}')
+                    # TODO: o que fazer com variantes com múltiplos alelos? Como escolher o alelo correto?
+                    self.logger.info(f'Variant with multiple alleles: {nuc_ref} - {nuc_alt}')
                     self.multiple_alleles_lines.append(row)
                 else:
                     self.not_single_genotype_lines.append(row)
