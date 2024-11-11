@@ -35,3 +35,9 @@ filters:
 ```
 
 # Usage
+
+Example of how to run the program using the `config.yaml` configuration file
+
+```
+python main.py config.yml
+```
