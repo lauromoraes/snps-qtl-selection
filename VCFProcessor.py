@@ -108,7 +108,7 @@ class VCFProcessor:
                 self.logger.error(f'Error reading VCF file: {self.vcf_file_path}')
                 sys.exit(1)
 
-    def select_most_freq_genotype(self, sample_info: str, nuc_ref: str, nuc_alt: str,  verbose: bool = False) -> str:
+    def select_most_freq_genotype(self, sample_info: str, nuc_ref: str, nuc_alt: str, verbose: bool = False) -> str:
         '''
         Method to select the most frequent genotype in the sample info field and correct it to 0 or 1
         :param sample_info:
@@ -175,6 +175,8 @@ class VCFProcessor:
                     self.not_single_genotype_lines.append(row)
                 continue
 
+            new_line = '\t'.join([str(x) for x in fields])
+
             parental_inf_info = fields[self.parental_inf_idx].split(':')
             parental_sup_info = fields[self.parental_sup_idx].split(':')
             pool_sup_info = fields[self.pool_sup_idx].split(':')
@@ -186,18 +188,22 @@ class VCFProcessor:
             genotype_inf = parental_inf_info[0]
 
             if genotype_sup == genotype_inf:
-                self.equal_genotype_lines.append(row)
+                self.equal_genotype_lines.append(new_line)
                 continue
 
 
             # Verify if allele counts are less than 3
             samples_fields = [parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info]
 
+            min_flag = False
             for sample in samples_fields:
                 counts = self.get_counts(sample)
                 if sum(counts) <= 3:
-                    self.low_reads_lines.append(row)
-                    continue
+                    min_flag = True
+
+            if min_flag:
+                self.low_reads_lines.append(new_line)
+                continue
 
             # Verify if the difference in the number of reads is less than 1
             parental_sup_counts = self.get_counts(parental_sup_info)
@@ -205,16 +211,24 @@ class VCFProcessor:
             parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
             parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
 
-            if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
-                self.insufficient_diff_lines.append(row)
+            # # TODO: review this case
+            # if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
+            #     self.insufficient_diff_lines.append(new_line)
+            #     continue
+
+            # TODO: review this new case
+            min_diff = 0.2
+            diff_perc_sup = abs(parental_sup_ordered[0] - parental_sup_ordered[1]) / sum(parental_sup_counts)
+            diff_perc_inf = abs(parental_inf_ordered[0] - parental_inf_ordered[1]) / sum(parental_inf_counts)
+
+            if diff_perc_sup < min_diff or diff_perc_inf < min_diff:
+                self.insufficient_diff_lines.append(new_line)
                 continue
 
-
             if flag:
-                new_line = '\t'.join([str(x) for x in fields])
                 selected_rows.append(new_line)
             else:
-                self.bug_lines.append(row)
+                self.bug_lines.append(new_line)
 
         self.variant_lines = selected_rows
 

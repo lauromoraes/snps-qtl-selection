@@ -6,7 +6,6 @@ import sys
 import logging
 import yaml
 
-from VCFProcessor import VCFProcessor
 from VCFProcessor import *
 
 
@@ -100,12 +99,12 @@ if __name__ == '__main__':
     logging.info('Creating VCFProcessor object...')
     # Create VCFProcessor object
     vcf_processor = VCFProcessor(config_file_path=config_file, logger=logging)
-    vcf_processor.load_vcf_file(verbose=False)
-    vcf_processor.get_header_info(verbose=False)
-    vcf_processor.correct_genotypes(verbose=False)
-    vcf_processor.write_preprocessed_files(verbose=False)
+    vcf_processor.load_vcf_file(verbose=True)
+    vcf_processor.get_header_info(verbose=True)
+    vcf_processor.correct_genotypes(verbose=True)
+    vcf_processor.write_preprocessed_files(verbose=True)
 
-    vcf_processor.apply_filters()
+    # vcf_processor.filter(verbose=True)
 
     # Log the end of the program
     logging.info('Program finished successfully.')
