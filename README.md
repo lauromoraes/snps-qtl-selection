@@ -1,7 +1,10 @@
-# About
-Script for custom SNPs selection in QTL study using *vcf* files as input.
+# SNP Selection Workflow from Sequencing Data
 
-# Config files
+## Overview
+This project includes a basic workflow for processing a [Variant Call Format](https://en.wikipedia.org/wiki/Variant_Call_Format) file (`.vcf`) as input and generates additional *vcf* files by filtering variants based on various criteria.
+
+
+## Config files
 
 
 
