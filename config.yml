@@ -2,28 +2,31 @@
 # a YAML file. The filters are applied in the order they are listed in the YAML file. The filters are applied to the
 # VCF file.
 
+# Specify the path to the VCF file and the output folder path for the filtered VCF files
 vcf_file_path: "variantsfile_Annotated.vcf"
 output_folder_path: "vcf_filtered"
 
+# Specify the columns names for the superior parental, inferior parental, superior pool and random pool in the VCF file
 parental_sup_column: "Samplen206_"
 parental_inf_column: "Samplen205_"
 pool_sup_column: "Samplen207_"
 pool_rnd_column: "Samplen208_"
 
+# List of filters to apply to the VCF file
 filters:
+  # Filter out variants that do not have the reference allele count greater than or equal to the specified number
   - name: "at_least"
-    description: "Filter out variants that do not have the reference allele count greater than or equal to the specified number"
     n_reads: "1"
+  # Filter out variants that do not have the reference allele count greater than the specified percentage of the total allele count
   - name: "percent_threshold"
-    description: "Filter out variants that the reference allele count is less than the specified percentage of the total allele count"
     threshold: "75"
+  # Filter out variants that do not have the reference allele count greater than other alleles
   - name: "ref_greater"
-    description: "Filter out variants that do not have the reference allele count greater than other alleles"
+  # Accept variants that have the superior parental allele on superior pool frequency closer to the greatest frequency
   - name: "diff_from_greater"
-    description: "Filter out variants that do not have the reference allele count closer to the greater allele count"
     diff_max: "10"
+  # Verify if random pool allele equal to superior parental has a mean percentage is between the average and standard deviation
   - name: "rnd_mean"
-    description: "Filter out variants"
     threshold: "75"
     avg_count : "50"
     std_dev : "2"

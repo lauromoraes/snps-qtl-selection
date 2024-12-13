@@ -27,7 +27,8 @@ def setup_logger():
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     # Create formatter
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    # formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(message)s')
     # Add formatter to console_handler
     console_handler.setFormatter(formatter)
     # Add console_handler to logger
@@ -104,10 +105,11 @@ if __name__ == '__main__':
     vcf_processor.correct_genotypes(verbose=True)
     vcf_processor.write_preprocessed_files(verbose=True)
 
-    # vcf_processor.filter(verbose=True)
+    vcf_processor.apply_filters(verbose=True)
 
     # Log the end of the program
     logging.info('Program finished successfully.')
+    logging.info('Goodbye!')
 
     # Exit the program
     sys.exit(0)
