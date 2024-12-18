@@ -14,17 +14,28 @@ pool_rnd_column: "Samplen208_"
 
 # List of filters to apply to the VCF file
 filters:
-  # Filter out variants that do not have the reference allele count greater than or equal to the specified number
+
   - name: "at_least"
     n_reads: "1"
-  # Filter out variants that do not have the reference allele count greater than the specified percentage of the total allele count
+    Description: >
+      Filter condition: check if the superior parental allele nucleotide count is greater than or equal to the 
+      specified number in the superior pool nucleotide count
+
+
   - name: "percent_threshold"
     threshold: "75"
-  # Filter out variants that do not have the reference allele count greater than other alleles
-  - name: "ref_greater"
+    Description: >
+      Filter out variants that do not have the reference allele count greater than the specified percentage of the total allele count
+
+  - name: "parental_sup_greater"
+    Description: >
+      Filter condition: check if the superior parental allele frequency is greater than the other nucleotides 
+      frequency in the superior pool nucleotide count frequency
+
   # Accept variants that have the superior parental allele on superior pool frequency closer to the greatest frequency
   - name: "diff_from_greater"
     diff_max: "10"
+    
   # Verify if random pool allele equal to superior parental has a mean percentage is between the average and standard deviation
   - name: "rnd_mean"
     threshold: "75"

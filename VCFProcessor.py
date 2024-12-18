@@ -137,7 +137,7 @@ class VCFProcessor:
                 fields[0] = '1'
             else:
                 if verbose:
-                    self.logger.info(f'BUG: {fields[0]}, {nuc}, {nuc_ref}, {nuc_alt}, {counts}')
+                    self.logger.info(f'INVALID LINE: {fields[0]}, {nuc}, {nuc_ref}, {nuc_alt}, {counts}')
                 return False
 
         corrected_samples_info = ':'.join(fields)
@@ -207,12 +207,6 @@ class VCFProcessor:
             parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
             parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
 
-            # # TODO: review this case
-            # if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
-            #     self.insufficient_diff_lines.append(new_line)
-            #     continue
-
-            # TODO: review this new case
             min_diff = 0.2
             diff_perc_sup = abs(parental_sup_ordered[0] - parental_sup_ordered[1]) / sum(parental_sup_counts)
             diff_perc_inf = abs(parental_inf_ordered[0] - parental_inf_ordered[1]) / sum(parental_inf_counts)
@@ -240,40 +234,6 @@ class VCFProcessor:
 
 
         return selected_rows
-
-    def valid_line(self, sample_info: list[str]) -> bool:
-        '''
-        Method to verify if the line of a VCF file is valid
-        :param sample_info: info of the samples
-        :return: True if the line is valid, False otherwise
-        '''
-        parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info = sample_info
-        genotype_sup = [x.split(':')[0] for x in parental_sup_info]
-        genotype_inf = [x.split(':')[0] for x in parental_inf_info]
-
-        # Genotype verification of the parental_sup and parental_inf fields of the info
-        if genotype_sup == genotype_inf:
-            print(f'DISCARD:  parental_sup_counts ({genotype_sup}) and parental_inf ({genotype_inf}) equal.')
-            return False
-
-        # Minimum number of reads verification
-        for sample in sample_info:
-            counts = self.get_counts(sample)
-            if sum(counts) <= 3:
-                print('DISCARD: insuficient number of reads.')
-                return False
-
-        parental_sup_counts = self.get_counts(parental_sup_info)
-        parental_inf_counts = self.get_counts(parental_inf_info)
-        parental_sup_ordered = sorted(parental_sup_counts, reverse=True)
-        parental_inf_ordered = sorted(parental_inf_counts, reverse=True)
-
-        # Check if the counts of the parental_sup and parental_inf fields of the info have a difference of at most 1
-        if abs(parental_sup_ordered[0] - parental_inf_ordered[0]) <= 1:
-            print(f'DISCARD: difference in the number of reads insufficient. parental_sup_counts({parental_sup_counts}) and parental_inf_counts({parental_inf_counts})')
-            return False
-
-        return True
 
     def write_preprocessed_files(self, verbose: bool = False) -> None:
         '''
@@ -372,7 +332,7 @@ class VCFProcessor:
         :param samples_idx: the indexes of the samples types in the variant line
         :return: the reference allele, the alternative allele and the sample info
         '''
-        # TODO: create and return a new object from the class VariantLine (to be created)
+
         fields = variant_line.split('\t')
         allele_ref = fields[3]
         allele_alt = fields[4]
@@ -418,29 +378,14 @@ class VCFProcessor:
             if parental_sup_allele != pool_sup_allele:
                 filtered_lines.append(l)
                 continue
-
-            # Verify if the allele count on the pool_sup is greater than the minimum number of reads
-            if max(pool_sup_counts) >= n_reads:
+            
+            allele_freq_on_sup_pool = pool_sup_counts[self.get_nuc_index(parental_sup_allele)]
+            if allele_freq_on_sup_pool >= n_reads:
                 output_lines.append(l)
             else:
                 filtered_lines.append(l)
 
         return output_lines, filtered_lines
-
-    # def get_allele(self, sample_info: list[str], allele_ref: str, allele_alt: str) -> str:
-    #     '''
-    #     Method to get the allele of a sample info based on the reference and alternative alleles
-    #     :param sample_info: the sample info to get the allele
-    #     :param allele_ref: nucleotide of the reference allele
-    #     :param allele_alt: nucleotide of the alternative allele
-    #     :return: the allele of the sample info
-    #     '''
-    #     allele_cod = sample_info[0]
-    #     if allele_cod == '0':
-    #         return allele_ref
-    #     elif allele_cod == '1':
-    #         return allele_alt
-    #     return None
 
     def percent_threshold(self, threshold: float = 0.0) -> List[str]:
 
@@ -473,8 +418,10 @@ class VCFProcessor:
                 filtered_lines.append(l)
                 continue
 
+
             # Calculate the ratio of the pool_sup allele
-            pool_sup_allele_ratio = float(max(pool_sup_counts)) / float(pool_sup_total_reads)
+            allele_freq_on_sup_pool = pool_sup_counts[self.get_nuc_index(parental_sup_allele_nuc)]
+            pool_sup_allele_ratio = float(allele_freq_on_sup_pool) / float(pool_sup_total_reads)
 
             # Verify if the ratio is greater than the threshold
             if pool_sup_allele_ratio >= threshold:
@@ -503,7 +450,7 @@ class VCFProcessor:
             # Pool superior info
             pool_sup_info = sample_info[2]
 
-            # Allele and counts of the parental sup and pool sup
+            # Allele nucelotide and counts of the parental sup and pool sup
             parental_sup_allele_nuc, _ = self.get_major_nuc(parental_sup_info[4])
             pool_sup_alelle_nuc, pool_sup_counts = self.get_major_nuc(pool_sup_info[4])
 
@@ -516,16 +463,6 @@ class VCFProcessor:
                 output_lines.append(l)
             else:
                 filtered_lines.append(l)
-
-            # pool_sup_counts = self.get_counts(sample_info[2])
-            # pool_sup_total_reads = sum(pool_sup_counts)
-            #
-            # # TODO: Tem que ser perecentual? Nao pode ser ser a contagem? A principio, nao havera diferenca
-            # pool_sup_percents = [float(x) / float(pool_sup_total_reads) for x in pool_sup_counts]
-            # if pool_sup_percents[self.get_nuc_index(allele_ref)] == max(pool_sup_percents):
-            #     output_lines.append(l)
-            # else:
-            #     filtered_lines.append(l)
 
         return output_lines, filtered_lines
 
@@ -555,24 +492,18 @@ class VCFProcessor:
             pool_sup_alelle_nuc, pool_sup_counts = self.get_major_nuc(pool_sup_info[4])
             pool_sup_total_reads = sum(pool_sup_counts)
 
-            # Verify if the pool_sup allele is the same as the parental_sup allele
-            if parental_sup_allele_nuc != pool_sup_alelle_nuc:
-                filtered_lines.append(l)
-                continue
-
             # Calculate the ratio of the pool_sup allele
             pool_sup_percents = [float(x) / float(pool_sup_total_reads) for x in pool_sup_counts]
             # Find the nucleotide with the greatest percentage
             greater_perc = max(pool_sup_percents)
             # Find the percentage of the parental superior allele
-            pool_sup_allele_perc = pool_sup_percents[self.get_nuc_index(pool_sup_alelle_nuc)]
+            pool_sup_allele_perc = pool_sup_percents[self.get_nuc_index(parental_sup_allele_nuc)]
             # Calculate the difference between the greatest percentage and the parental superior allele percentage
             diff = abs(greater_perc - pool_sup_allele_perc)
-            
-            # TODO: Incluir o zero?
+
 
             # Verify if the difference is smaller than the threshold
-            if diff_max >= diff > 0.0:
+            if diff_max >= diff >= 0.0:
                 output_lines.append(l)
             else:
                 filtered_lines.append(l)
@@ -595,26 +526,26 @@ class VCFProcessor:
             parental_sup_info = sample_info[0]
             parental_sup_allele_nuc, _ = self.get_major_nuc(parental_sup_info[4])
 
-            # TODO: Tem que verificar se allelo parental sup e pool sup sao iguais??
+            # Pool superior info
+            pool_sup_info = sample_info[2]
+            pool_sup_alelle_nuc, pool_sup_counts = self.get_major_nuc(pool_sup_info[4])
 
-            pool_sup_counts = self.get_counts(sample_info[2])
             pool_rnd_counts = self.get_counts(sample_info[3])
 
             pool_sup_total_reads = sum(pool_sup_counts)
             pool_rnd_total_reads = sum(pool_rnd_counts)
-
-            if pool_rnd_total_reads == 0 or pool_sup_total_reads == 0:
-                self.logger.error(f'Error: pool_rnd_total_reads: {pool_rnd_total_reads} or pool_sup_total_reads: {pool_sup_total_reads} is zero.')
-                filtered_lines.append(l)
-                continue
-
             pool_sup_percents = [float(x) / float(pool_sup_total_reads) for x in pool_sup_counts]
             pool_rnd_percents = [float(x) / float(pool_rnd_total_reads) for x in pool_rnd_counts]
 
-            ref_sup_perc = pool_sup_percents[self.get_nuc_index(parental_sup_allele_nuc)]
-            ref_rnd_perc = pool_rnd_percents[self.get_nuc_index(parental_sup_allele_nuc)]
+            # Verify if the pool_sup allele is the same as the parental_sup allele
+            if parental_sup_allele_nuc != pool_sup_alelle_nuc:
+                filtered_lines.append(l)
+                continue
 
+            ref_sup_perc = pool_sup_percents[self.get_nuc_index(parental_sup_allele_nuc)]
             cond1 = ref_sup_perc >= threshold
+
+            ref_rnd_perc = pool_rnd_percents[self.get_nuc_index(parental_sup_allele_nuc)]
             cond2 = (avg + std) >= ref_rnd_perc >= (avg - std)
 
             if cond1 and cond2:
@@ -631,18 +562,18 @@ class VCFProcessor:
     def apply_filters(self, verbose: bool = True) -> None:
         filters = self.config_obj['filters']
 
+        self.logger.info(' ')
+        self.logger.info(' ')
 
         for f in filters:
-            self.logger.info('=' * 50)
+            self.logger.info('=' * 75)
             
             filter_name = f['name']
             output_lines = None
 
             if verbose:
-                self.logger.info('< FILTER >')
-                self.logger.info(f'{filter_name}')
-                self.logger.info('< PARAMETERS >')
-                self.logger.info(f'{f}')
+                self.logger.info('FILTER : ' + filter_name)
+                self.logger.info('PARAMETERS : ' + str(f))
 
             # Identify the filter to apply based on the name, get the parameters and apply the filter
             if filter_name == 'at_least':
@@ -653,7 +584,7 @@ class VCFProcessor:
                 threshold = float(f['threshold']) / 100.
                 output_lines, filtered_lines = self.percent_threshold(threshold=threshold)
 
-            elif filter_name == 'ref_greater':
+            elif filter_name == 'parental_sup_greater':
                 output_lines, filtered_lines = self.parental_sup_greater()
 
             elif filter_name == 'diff_from_greater':
@@ -672,9 +603,9 @@ class VCFProcessor:
                 continue
 
             if verbose:
-                self.logger.info('< SUMMARY >')
-                self.logger.info(f'Number of lines before filter: {len(self.variant_lines)}')
-                self.logger.info(f'Number of lines after filter: {len(output_lines)}')
+                self.logger.info('SUMMARY')
+                self.logger.info(f'\tNumber of lines before filter: {len(self.variant_lines)}')
+                self.logger.info(f'\tNumber of lines after filter: {len(output_lines)}')
 
 
             # Write the filtered VCF file
@@ -689,10 +620,14 @@ class VCFProcessor:
                     f.write(''.join(self.metadata_lines))
                     f.write(''.join(filtered_lines))
                 if verbose:
-                    self.logger.info('< OUTPUTS >')
-                    self.logger.info(f'Filtered variants written successfully to {output_file_path}')
-                    self.logger.info(f'Discarded variants written to {filtered_file_path}')
+                    self.logger.info('OUTPUTS')
+                    self.logger.info(f'\tFiltered variants written successfully to:')
+                    self.logger.info(f'\t{output_file_path}')
+                    self.logger.info(' ')
+                    self.logger.info(f'\tDiscarded variants written to:')
+                    self.logger.info(f'\t{filtered_file_path}')
             else:
-                self.logger.warning(f'No lines to write in the filtered VCF file: {filter_name}_{os.path.basename(self.vcf_file_path)}')
+                self.logger.warning(f'\t: WARNING : No lines to write in the filtered VCF file: {filter_name}'
+                                    f'_{os.path.basename(self.vcf_file_path)}')
 
-            self.logger.info('-' * 50)
+            self.logger.info(' ')
