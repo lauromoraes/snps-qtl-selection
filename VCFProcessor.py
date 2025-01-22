@@ -324,22 +324,21 @@ class VCFProcessor:
 
         return metadata_lines, variant_lines
 
-    def get_info_fields(self, variant_line: str, samples_idx: list[int] = [-4, -3, -2, -1]) -> tuple[str, str, list[list[str]]]:
+    def get_info_fields(self, variant_line: str) -> tuple[str, str, list[list[str]]]:
         '''
         Method to extract and get the info fields of a variant line
 
         :param variant_line: the variant line of a VCF file to extract the info fields
-        :param samples_idx: the indexes of the samples types in the variant line
         :return: the reference allele, the alternative allele and the sample info
         '''
 
         fields = variant_line.split('\t')
         allele_ref = fields[3]
         allele_alt = fields[4]
-        parental_sup_info = [x for x in fields[samples_idx[0]].split(':')]
-        parental_inf_info = [x for x in fields[samples_idx[1]].split(':')]
-        pool_sup_info = [x for x in fields[samples_idx[2]].split(':')]
-        pool_rnd_info = [x for x in fields[samples_idx[3]].split(':')]
+        parental_sup_info = [x for x in fields[self.parental_sup_idx].split(':')]
+        parental_inf_info = [x for x in fields[self.parental_inf_idx].split(':')]
+        pool_sup_info = [x for x in fields[self.pool_sup_idx].split(':')]
+        pool_rnd_info = [x for x in fields[self.pool_rnd_idx].split(':')]
         sample_info = [parental_sup_info, parental_inf_info, pool_sup_info, pool_rnd_info]
         return allele_ref, allele_alt, sample_info
 

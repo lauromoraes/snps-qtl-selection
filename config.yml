@@ -3,14 +3,14 @@
 # VCF file.
 
 # Specify the path to the VCF file and the output folder path for the filtered VCF files
-vcf_file_path: "variantsfile_Annotated.vcf"
+vcf_file_path: "variantsfile_Annotated_complete.vcf"
 output_folder_path: "vcf_filtered"
 
 # Specify the columns names for the superior parental, inferior parental, superior pool and random pool in the VCF file
-parental_sup_column: "Samplen206_"
-parental_inf_column: "Samplen205_"
-pool_sup_column: "Samplen207_"
-pool_rnd_column: "Samplen208_"
+parental_sup_column: "241_ParSup"
+parental_inf_column: "240_ParInf"
+pool_sup_column: "243_PoolSup"
+pool_rnd_column: "242_PoolRand"
 
 # List of filters to apply to the VCF file
 filters:
@@ -21,11 +21,10 @@ filters:
       Filter condition: check if the superior parental allele nucleotide count is greater than or equal to the 
       specified number in the superior pool nucleotide count
 
-
   - name: "percent_threshold"
     threshold: "75"
     Description: >
-      Filter out variants that do not have the reference allele count greater than the specified percentage of the total allele count
+      Filter out variants that do not have the superior pool allele frequency greater than the specified percentage.
 
   - name: "parental_sup_greater"
     Description: >
