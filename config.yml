@@ -3,7 +3,7 @@
 # VCF file.
 
 # Specify the path to the VCF file and the output folder path for the filtered VCF files
-vcf_file_path: "variantsfile_Annotated_complete.vcf"
+vcf_file_path: "variantsfile.vcf"
 output_folder_path: "vcf_filtered"
 
 # Specify the columns names for the superior parental, inferior parental, superior pool and random pool in the VCF file
